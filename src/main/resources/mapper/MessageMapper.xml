@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psy.homework11.dao.MessageDAO">
+    <!--查询所有文章信息-->
+    <select id="queryAllMessages" resultType="cn.psy.homework11.pojo.Message" parameterType="Message">
+      select * from message m
+    left join reply r on m.id=r.message_id
+    group by m.id
+    order by r.reply_time desc
+
+    </select>
+
+
+    <!--根据文章id查询文章信息-->
+    <select id="queryMessageById" resultType="cn.psy.homework11.pojo.Message" parameterType="Message">
+    select *
+    from message
+    where id=#{id}
+    </select>
+
+
+    <!--增加文章-->
+    <insert id="addMessage" >
+    insert into
+    message
+    ( title, article, user_id, author, time, reply_count) VALUES (#{title},#{article},#{user_id},#{author},#{time},#{reply_count})
+    </insert>
+
+    <!--根据文章的id删除文章-->
+    <delete id="deleteMessageById">
+    delete from message
+    where id=#{id}
+    </delete>
+
+    <!--根据文章的id修改文章-->
+    <update id="updateMessageById">
+    update message SET title=#{title},article=#{article},user_id=#{user_id},author=#{author},time=#{time},reply_count=#{reply_count}
+     where id=#{id}
+    </update>
+
+
+    <!--根据作者查询文章-->
+    <select id="queryMessagesByAuthor" resultType="cn.psy.homework11.pojo.Message" parameterType="Message">
+    select  *
+    from message
+    where author=#{author}
+    </select>
+</mapper>

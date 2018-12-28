@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/addReplyById">
+<!--添加评论-->
+    <tr>
+
+        <td><input th:type="text" name="message_id" th:value="${message_id}" readonly="readonly " style="display: none"  /></td><br />
+    </tr>
+    <h1 align="center">
+        评论：<input type="text" class="form-control" id="reply_content" name="reply_content" placeholder="输入你的评论">
+    </h1>
+
+    <h1 align="center">
+        <input type="submit"   id="submit" value="提交"/>
+    </h1>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psy.homework11.dao.UserDAO">
+
+    <!--查询usr表账号和密码,用于验证登陆-->
+    <select id="queryUser" resultType="cn.psy.homework11.pojo.User" parameterType="User">
+    select  tel,password
+    from user
+    where tel=#{user.tel} and password=#{user.password}
+    </select>
+
+    <!--查询表中是否已经存在该用户-->
+    <select id="queryUserByTel" resultType="cn.psy.homework11.pojo.User" parameterType="String">
+    select *
+    from user
+    where tel=#{tel}
+    </select>
+
+    <!--注册用户-->
+    <insert id="registerUser">
+         insert into user (tel,password,name,role_id) values (#{tel},#{password},#{name},2)
+    </insert>
+
+
+    <!--根据用户的电话查找id-->
+    <select id="queryIdByTel" resultType="java.lang.Integer">
+    select id
+    from user
+    where tel=#{tel}
+    </select>
+
+    <!--根据用户的id查询角色-->
+    <select id="queryRoleById" parameterType="java.lang.Integer" resultType="cn.psy.homework11.pojo.Role">
+    select *
+    from role
+    where user_id=#{user_id}
+    </select>
+
+    <!--查找所有用户-->
+    <select id="queryAllUsers" resultType="User">
+    select *
+    from user
+    </select>
+
+    <!--根据用户id修改角色-->
+    <update id="editRoleById">
+    update role SET role=#{role}
+     where user_id=#{user_id}
+    </update>
+
+    <!--根据用户名字修改角色-->
+    <update id="updateRoleByName">
+    update user SET role_id=#{role_id}
+    where name=#{name}
+    </update>
+
+    <!--查找所有普通用户-->
+    <select id="queryUsersByRole" resultType="cn.psy.homework11.pojo.User">
+    select *
+    from user
+    where role=#{role}
+    </select>
+
+
+
+</mapper>

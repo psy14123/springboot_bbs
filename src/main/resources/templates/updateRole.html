@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table>
+    <tr>
+        <!--选择用户-->
+        <td>选择用户</td>
+        <td><select th:id="name">
+            <option>··请选择··</option>
+            <div th:each="list:${userList}">
+                <option th:text="${list['name']}"></option>
+            </div>
+        </select>
+        </td>
+
+        <!--选择角色-->
+        <td>选择角色</td>
+        <td><select th:id="role">
+            <option>··请选择··</option>
+            <div th:each="roleList:${roleList}">
+                <option th:text="${roleList['role']}"></option>
+            </div>
+        </select>
+        </td>
+
+
+ </tr>
+
+</table>
+    <td><input th:type="button" th:value="提交修改" onclick="edit()"/></td>
+<td><input type="button" class="btn btn-primary btn-lg btn-block" value="返回主页面"
+           onclick="location.href='/administerMessage'"></td>
+<td><input type="button" class="btn btn-primary btn-lg btn-block" value="添加角色"
+           onclick="location.href='toCreateRole'"></td>
+
+<script>
+    function edit() {
+        var name=$("#name option:selected").val();
+        var role=$("#role option:selected").val();
+        $.ajax({
+            type:'post',
+            url:'/updateRole',
+            data:{"name":name,
+                "role":role},
+            dataType:'JSON',
+            success:function(msg){
+
+                if("99"==msg.errorCode) {
+                    alert("修改成功");
+                    location.href = "/administerMessage";
+                }
+                else {
+                    alert("修改失败");
+                }
+            }
+        });
+    }
+
+</script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</body>
+</html>

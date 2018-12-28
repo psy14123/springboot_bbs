@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑</title>
+</head>
+<body>
+<!-- 编辑 -->
+<form th:action="@{/updateMessageById}" method="post">
+    <table>
+        <tr>
+        <td >修改文章</td><br />
+    </tr>
+    <tr>
+        <!--修改文章的名字-->
+        <td><input th:type="text" name="id" th:value="${id}" readonly="readonly " style="display: none"  /></td><br />
+    </tr>
+    <tr>
+        <td>文章名字:</td>
+        <td><input  type="text" name="title" id="title" th:value="${message.title}"/></td>
+    </tr>
+    <br>
+    <tr>
+        <td>修改内容:</td>
+    </tr>
+    </table>
+    <!--修改文章的内容-->
+        <td><textarea th:cols="50" th:rows="30" th:name="article" th:text="${message.article}"></textarea></td>
+
+
+    <table>
+        <tr>
+            <td>
+                <input  type="submit" value="提交"/>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

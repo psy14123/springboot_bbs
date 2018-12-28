@@ -1,0 +1,54 @@
+<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>管理员页面</title>
+
+
+</head>
+<body>
+<table>
+    <tr>
+        <td><a th:href="@{/myMessage}"><h4>我的文章</h4></a></td>
+
+        <td th:if="${power.reply} ne 0"><a th:href="@{/allCommonUsers}"><h4>人员管理</h4></a></td>
+
+
+    </tr>
+</table>
+
+    <table>
+        <tr>
+            <td>id&nbsp;&nbsp;&nbsp;</td>
+            <td>标题&nbsp;&nbsp;&nbsp;</td>
+            <td>作者&nbsp;&nbsp;&nbsp;</td>
+            <td>发表时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>最后评论时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>评论次数</td>
+        </tr>
+    </table>
+
+    <div th:each="temp:${message_list}">
+        <tr>
+            <td th:text="${temp.id}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.title}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.author}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.time}"></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td th:text="${replyService.queryLastReplyTimeById(temp.id)}"></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.reply_count}"></td>
+
+            <td th:if="${power.update_p} ne 0"><a th:href="@{toEditMessage(id=${temp.id})}">编辑</a></td>
+            <td th:if="${power.delete_p} ne 0"><a th:href="@{deleteMessageById(id=${temp.id})}">删除</a></td>
+            <td th:if="${power.reply} ne 0"><a th:href="@{toAddReply(message_id=${temp.id})}">评论</a></td>
+            <td th:if="${power.see}"><a th:href="@{messageDetails(message_id=${temp.id})}">详情</a></td>
+        </tr>
+    </div>
+
+    <tr>
+        <td th:if="${power.add_p} ne 0"><input type="button" class="btn btn-primary btn-lg btn-block" value="添加"
+                   onclick="location.href='/toAddMessage'"></td>
+    </tr>
+
+</table>
+</body>
+</html>

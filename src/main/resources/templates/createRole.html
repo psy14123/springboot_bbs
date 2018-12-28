@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>创建角色</title>
+</head>
+<body>
+<!--创建角色-->
+
+<table>
+    <tr>
+        <td>请输入角色名</td>
+        <td>
+        </td>
+        <td>角色名</td>
+        <td><input type="text" id="role" name="role">
+        </td>
+    </tr>
+
+    <!--添加的权限-->
+    <td>添加</td>
+    <td><select th:id="add">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+    </select>
+    </td>
+
+    <!--删除的权限-->
+    <td>删除</td>
+    <td><select th:id="delete">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+    </select>
+    </td>
+
+    <!--修改文章的权限-->
+    <td>修改</td>
+    <td><select th:id="update">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+    </select>
+    </td>
+
+    <!--查看文章的权限-->
+    <td>查看</td>
+    <td><select th:id="see">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+    </select>
+    </td>
+
+    <!--评论的权限-->
+    <td>评论</td>
+    <td><select th:id="reply">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+    </select>
+    </td>
+
+
+    <!--管理的权限-->
+    <td>管理</td>
+    <td><select th:id="manage">
+        <option>··选择权限··</option>
+        <div>
+            <option>1</option>
+            <option>0</option>
+        </div>
+
+    </select>
+    </td>
+
+</table>
+
+<td><input th:type="button" th:value="确认创建" onclick="createRole()"/></td>
+<td><input type="button" class="btn btn-primary btn-lg btn-block" value="返回主页面"
+           onclick="location.href='/administerMessage'"></td>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<script>
+    function createRole() {
+        var name = $("#name option:selected").val();
+        var role = $("#role").val();
+        var add = $("#add option:selected").val();
+        var delete1 = $("#delete option:selected").val();
+        var update = $("#update option:selected").val();
+        var see = $("#see option:selected").val();
+        var reply = $("#reply option:selected").val();
+        var manage = $("#manage option:selected").val();
+
+        $.ajax({
+            type: 'post',
+            url: '/createRole',
+            data: {
+                "role": role,
+                "add": add,
+                "update": update,
+                "see": see,
+                "delete": delete1,
+                "reply": reply,
+                "manage":manage
+            },
+            dataType: 'JSON',
+            success: function (msg) {
+                if ("07" == msg.errorCode) {
+                    alert("创建成功");
+                    location.href = "redirect:/administerMessage";
+                }
+                else if ("08" == msg.errorCode) {
+                    alert("角色已存在")
+
+                }
+            }
+
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

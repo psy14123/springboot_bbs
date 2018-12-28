@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>用户文章页面</title>
+</head>
+<body>
+<!--用户文章的页面-->
+<table>
+    <table>
+        <tr>
+            <td>id&nbsp;&nbsp;&nbsp;</td>
+            <td>标题&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>作者&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>发表时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>评论次数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+    </table>
+
+    <div th:each="temp:${myList}">
+        <tr>
+            <td th:text="${temp.id}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.title}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.author}"></td>&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.time}"></td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td th:text="${temp.reply_count}"></td>&nbsp;&nbsp;&nbsp;
+            <td><a th:href="@{toEditMessage(id=${temp.id})}">编辑</a></td>
+            <td><a th:href="@{deleteMessageById(id=${temp.id})}">删除</a></td>
+        </tr>
+    </div>
+
+
+</table>
+
+</body>
+</html>

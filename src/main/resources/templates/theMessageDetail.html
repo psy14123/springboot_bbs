@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>信息详情</title>
+</head>
+<body>
+<tr>
+
+    <td><input th:type="text" name="message_id" th:value="${message_id}" readonly="readonly " style="display: none"  /></td><br />
+</tr>
+<table>
+    <tr>
+
+        <td>标题 &nbsp;&nbsp;</td>
+        <td>作者 &nbsp;&nbsp;</td>
+    </tr>
+</table>
+<div th:each="temp:${message}">
+
+    <tr>
+        <td th:text="${temp.title}">&nbsp;</td>
+        <td th:text="${temp.author}">&nbsp;</td>
+    </tr>
+</div>
+<br><br>
+<table>
+    <tr>
+    <td>内容:</td>
+    </tr>
+</table>
+<div th:each="temp:${message}">
+
+    <tr>
+        <td th:text="${temp.article}"></td>
+    </tr>
+</div>
+<br><br>
+<table>
+    <tr>
+        <td>发表时间 &nbsp;</td>
+        <td>评论次数 &nbsp;</td></table>
+
+    </tr>
+</table>
+<div th:each="temp:${message}">
+
+    <tr>
+        <td th:text="${temp.time}"></td>
+        <td th:text="${temp.reply_count}"></td>
+
+    </tr>
+</div>
+<br><br><br>
+<table>
+    <tr>
+
+        <td>用户 &nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>评论 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>发表时间&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+</table>
+<div th:each="temp:${replyList}">
+
+    <tr>
+        <td th:text="${temp.replier}"></td>&nbsp;&nbsp;&nbsp;&nbsp;
+        <td th:text="${temp.reply_content}"></td>&nbsp;&nbsp;&nbsp;&nbsp;
+        <td th:text="${temp.reply_time}"></td>&nbsp;&nbsp;&nbsp;&nbsp;
+        <!--<td th:text="${replyService.queryLastReplyTimeById(temp.id)}">-->
+
+
+    </tr>
+</div>
+<tr>
+    <input type="button" class="btn btn-primary btn-lg btn-block" value="返回主页面"
+           onclick="location.href='/administerMessage'">
+</tr>
+
+</body>
+</html>

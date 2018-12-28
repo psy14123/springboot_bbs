@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.psy.homework11.dao.ReplyDAO">
+
+    <!--根据文章查询文章评论-->
+    <select id="queryReplyByMessage" resultType="cn.psy.homework11.pojo.Reply" parameterType="Reply">
+    select *
+    from reply
+    where message_id=#{message_id}
+    </select>
+
+
+    <!--根据文章id增加评论-->
+    <insert id="addReplyById" >
+    insert into
+    reply
+    (message_id,replier,reply_content,reply_time) VALUES (#{message_id},#{replier},#{reply_content},#{reply_time})
+    </insert>
+
+    <!--根据文章查询最新评论时间-->
+    <select id="queryLastReplyTimeById" resultType="Date" parameterType="Reply">
+    select max(reply_time)
+    from reply
+    where message_id=#{message_id}
+    </select>
+</mapper>
